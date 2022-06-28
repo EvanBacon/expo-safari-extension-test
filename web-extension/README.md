@@ -1,5 +1,10 @@
+# About this directory
+
 This folder is linked to Xcode so you need to be a bit careful with the contents.
 
+## `web-extension/`
+
+The containing folder is using a magic name, if it changes then the manifest.json generation script must be updated. You'd also need to update Xcode to know about the new name.
 
 ## `public/`
 

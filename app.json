@@ -21,7 +21,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bacon.yolo101"
+      "bundleIdentifier": "app.bacon.expowebextension"
     },
     "plugins": [
     ],
@@ -30,7 +30,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.bacon.yolo101"
+      "package": "app.bacon.expowebextension"
     },
     "web": {
       "bundler": "metro",

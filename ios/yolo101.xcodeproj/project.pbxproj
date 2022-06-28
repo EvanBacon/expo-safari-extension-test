@@ -399,7 +399,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n`node ../Resources/manifest.js`\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n`node ../web-extension/manifest.js`\n";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
