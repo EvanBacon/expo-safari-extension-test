@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "yolo101",
-    "slug": "yolo101",
+    "name": "expo-safari-extension",
+    "slug": "expo-safari-extension",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "https://icogen.vercel.app/api/icon?icon=1f9ed&auto_color_style=flood",
     "jsEngine": "hermes",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "https://icogen.vercel.app/api/splash?icon=1f9ed&auto_color_style=flood",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {

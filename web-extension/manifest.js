@@ -8,11 +8,11 @@ const manifest = () => {
     version: "1.0",
 
     icons: {
-      48: "images/icon/icon-48.png",
-      96: "images/icon/icon-96.png",
-      128: "images/icon/icon-128.png",
-      256: "images/icon/icon-256.png",
-      512: "images/icon/icon-512.png",
+      48: "public/images/icon/icon-48.png",
+      96: "public/images/icon/icon-96.png",
+      128: "public/images/icon/icon-128.png",
+      256: "public/images/icon/icon-256.png",
+      512: "public/images/icon/icon-512.png",
     },
 
     host_permissions: [
@@ -37,30 +37,32 @@ const manifest = () => {
     ],
 
     background: {
-      scripts: ["src/_background.js"],
+      scripts: ["public/index.background.js"],
       persistent: false,
     },
 
     // Injects the following script...
     content_scripts: [
       {
+        // TODO: Static render to get the settings from the file
+        js: ["public/index.content.js"],
+
         matches: ["*://*/*"],
         match_about_blank: true,
-        js: ["src/_main.js"],
         all_frames: true,
         run_at: "document_start",
       },
     ],
 
     browser_action: {
-      default_popup: "src/index.html",
+      default_popup: "public/index.html",
       default_icon: {
-        16: "images/toolbar/icon-16.png",
-        19: "images/toolbar/icon-19.png",
-        32: "images/toolbar/icon-32.png",
-        38: "images/toolbar/icon-38.png",
-        48: "images/toolbar/icon-48.png",
-        72: "images/toolbar/icon-72.png",
+        16: "public/images/toolbar/icon-16.png",
+        19: "public/images/toolbar/icon-19.png",
+        32: "public/images/toolbar/icon-32.png",
+        38: "public/images/toolbar/icon-38.png",
+        48: "public/images/toolbar/icon-48.png",
+        72: "public/images/toolbar/icon-72.png",
       },
     },
   };
