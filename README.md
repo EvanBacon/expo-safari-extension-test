@@ -30,6 +30,19 @@ Refused to load http://localhost:19000/index.bundle?platform=web&dev=true&hot=fa
 - Attempted to add to the `index.html`
 - Attempted to add to the JS response headers
 
+#### `web-extension/public/index.html`
+
+This is setup to use `react-native-web` via Expo CLI. 
+
+The script tag uses [experimental Expo Metro web](https://github.com/expo/expo/pull/17927):
+```
+http://localhost:19000/index.bundle?platform=web&dev=true&hot=false
+```
+
+You can change it to `https://localhost:19006/static/js/bundle.js` to use Expo Webpack.
+
+Start the dev server with `expo start --web`. This won't load because it appears to be blocked by Safari. You can open up desktop Safari and navigate to: `Develop > Simulator > webext -- Extension Popup Page -- **` then reloading to see the error.
+
 ### `manifest.js`
 
 The `manifest.json` is used across a couple different web extension platforms meaning it has values which aren't supported everywhere. Using a `manifest.js` generation script means we can dynamically apply different values based on the build target.
