@@ -1,0 +1,345 @@
+diff --git a/node_modules/expo/.DS_Store b/node_modules/expo/.DS_Store
+new file mode 100644
+index 0000000..6409795
+Binary files /dev/null and b/node_modules/expo/.DS_Store differ
+diff --git a/node_modules/expo/build/Expo.fx.web.d.ts.map b/node_modules/expo/build/Expo.fx.web.d.ts.map
+index cd0f545..0d7e5ea 100644
+--- a/node_modules/expo/build/Expo.fx.web.d.ts.map
++++ b/node_modules/expo/build/Expo.fx.web.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"Expo.fx.web.d.ts","sourceRoot":"","sources":["../src/Expo.fx.web.ts"],"names":[],"mappings":"AAAA,OAAO,oCAAoC,CAAC"}
+\ No newline at end of file
++{"version":3,"file":"Expo.fx.web.d.ts","sourceRoot":"","sources":["../src/Expo.fx.web.tsx"],"names":[],"mappings":"AAAA,OAAO,oCAAoC,CAAC"}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/Expo.fx.web.js b/node_modules/expo/build/Expo.fx.web.js
+index 974fd51..84233c9 100644
+--- a/node_modules/expo/build/Expo.fx.web.js
++++ b/node_modules/expo/build/Expo.fx.web.js
+@@ -1,5 +1,8 @@
+ import './environment/react-native-logs.fx';
+ import { Platform } from 'expo-modules-core';
++import { AppRegistry } from 'react-native';
++import * as React from 'react';
++import DevAppContainer from './environment/DevAppContainer';
+ // When users dangerously import a file inside of react-native, it breaks the web alias.
+ // This is one of the most common, and cryptic web errors that users encounter.
+ // This conditional side-effect provides a more helpful error message for debugging.
+@@ -16,5 +19,19 @@ if (__DEV__) {
+             },
+         });
+     }
++    // add the dev app container wrapper component on ios
++    // @ts-ignore
++    AppRegistry.setWrapperComponentProvider(() => DevAppContainer);
++    // @ts-ignore
++    const originalSetWrapperComponentProvider = AppRegistry.setWrapperComponentProvider;
++    // @ts-ignore
++    AppRegistry.setWrapperComponentProvider = (provider) => {
++        function PatchedProviderComponent(props) {
++            const ProviderComponent = provider();
++            return (React.createElement(DevAppContainer, null,
++                React.createElement(ProviderComponent, { ...props })));
++        }
++        originalSetWrapperComponentProvider(() => PatchedProviderComponent);
++    };
+ }
+ //# sourceMappingURL=Expo.fx.web.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/Expo.fx.web.js.map b/node_modules/expo/build/Expo.fx.web.js.map
+index cfbfdc1..dd349bd 100644
+--- a/node_modules/expo/build/Expo.fx.web.js.map
++++ b/node_modules/expo/build/Expo.fx.web.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"Expo.fx.web.js","sourceRoot":"","sources":["../src/Expo.fx.web.ts"],"names":[],"mappings":"AAAA,OAAO,oCAAoC,CAAC;AAE5C,OAAO,EAAE,QAAQ,EAAE,MAAM,mBAAmB,CAAC;AAE7C,wFAAwF;AACxF,+EAA+E;AAC/E,oFAAoF;AACpF,IAAI,OAAO,EAAE;IACX,qEAAqE;IACrE;IACE,yBAAyB;IACzB,QAAQ,CAAC,EAAE,KAAK,KAAK;QACrB,sDAAsD;QACtD,CAAC,CAAC,yBAAyB,IAAI,MAAM,CAAC,EACtC;QACA,MAAM,CAAC,cAAc,CAAC,MAAM,EAAE,yBAAyB,EAAE;YACvD,GAAG;gBACD,MAAM,IAAI,KAAK,CACb,qJAAqJ,CACtJ,CAAC;YACJ,CAAC;SACF,CAAC,CAAC;KACJ;CACF","sourcesContent":["import './environment/react-native-logs.fx';\n\nimport { Platform } from 'expo-modules-core';\n\n// When users dangerously import a file inside of react-native, it breaks the web alias.\n// This is one of the most common, and cryptic web errors that users encounter.\n// This conditional side-effect provides a more helpful error message for debugging.\nif (__DEV__) {\n  // Use a wrapper `__DEV__` to remove this entire block in production.\n  if (\n    // Only on web platforms.\n    Platform.OS === 'web' &&\n    // Skip mocking if someone is shimming this value out.\n    !('__fbBatchedBridgeConfig' in global)\n  ) {\n    Object.defineProperty(global, '__fbBatchedBridgeConfig', {\n      get() {\n        throw new Error(\n          \"Your web project is importing a module from 'react-native' instead of 'react-native-web'. Learn more: https://expo.fyi/fb-batched-bridge-config-web\"\n        );\n      },\n    });\n  }\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"Expo.fx.web.js","sourceRoot":"","sources":["../src/Expo.fx.web.tsx"],"names":[],"mappings":"AAAA,OAAO,oCAAoC,CAAC;AAE5C,OAAO,EAAE,QAAQ,EAAE,MAAM,mBAAmB,CAAC;AAC7C,OAAO,EAAE,WAAW,EAAc,MAAM,cAAc,CAAC;AACvD,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAE/B,OAAO,eAAe,MAAM,+BAA+B,CAAC;AAG5D,wFAAwF;AACxF,+EAA+E;AAC/E,oFAAoF;AACpF,IAAI,OAAO,EAAE;IACX,qEAAqE;IACrE;IACE,yBAAyB;IACzB,QAAQ,CAAC,EAAE,KAAK,KAAK;QACrB,sDAAsD;QACtD,CAAC,CAAC,yBAAyB,IAAI,MAAM,CAAC,EACtC;QACA,MAAM,CAAC,cAAc,CAAC,MAAM,EAAE,yBAAyB,EAAE;YACvD,GAAG;gBACD,MAAM,IAAI,KAAK,CACb,qJAAqJ,CACtJ,CAAC;YACJ,CAAC;SACF,CAAC,CAAC;KACJ;IAED,qDAAqD;IACrD,aAAa;IACb,WAAW,CAAC,2BAA2B,CAAC,GAAG,EAAE,CAAC,eAAe,CAAC,CAAC;IAE/D,aAAa;IACb,MAAM,mCAAmC,GAAG,WAAW,CAAC,2BAA2B,CAAC;IAEpF,aAAa;IACb,WAAW,CAAC,2BAA2B,GAAG,CAAC,QAAQ,EAAE,EAAE;QACrD,SAAS,wBAAwB,CAAC,KAAU;YAC1C,MAAM,iBAAiB,GAAG,QAAQ,EAAE,CAAC;YAErC,OAAO,CACL,oBAAC,eAAe;gBACd,oBAAC,iBAAiB,OAAK,KAAK,GAAI,CAChB,CACnB,CAAC;QACJ,CAAC;QAED,mCAAmC,CAAC,GAAG,EAAE,CAAC,wBAAwB,CAAC,CAAC;IACtE,CAAC,CAAC;CACH","sourcesContent":["import './environment/react-native-logs.fx';\n\nimport { Platform } from 'expo-modules-core';\nimport { AppRegistry, StyleSheet } from 'react-native';\nimport * as React from 'react';\n\nimport DevAppContainer from './environment/DevAppContainer';\n\n\n// When users dangerously import a file inside of react-native, it breaks the web alias.\n// This is one of the most common, and cryptic web errors that users encounter.\n// This conditional side-effect provides a more helpful error message for debugging.\nif (__DEV__) {\n  // Use a wrapper `__DEV__` to remove this entire block in production.\n  if (\n    // Only on web platforms.\n    Platform.OS === 'web' &&\n    // Skip mocking if someone is shimming this value out.\n    !('__fbBatchedBridgeConfig' in global)\n  ) {\n    Object.defineProperty(global, '__fbBatchedBridgeConfig', {\n      get() {\n        throw new Error(\n          \"Your web project is importing a module from 'react-native' instead of 'react-native-web'. Learn more: https://expo.fyi/fb-batched-bridge-config-web\"\n        );\n      },\n    });\n  }\n\n  // add the dev app container wrapper component on ios\n  // @ts-ignore\n  AppRegistry.setWrapperComponentProvider(() => DevAppContainer);\n\n  // @ts-ignore\n  const originalSetWrapperComponentProvider = AppRegistry.setWrapperComponentProvider;\n\n  // @ts-ignore\n  AppRegistry.setWrapperComponentProvider = (provider) => {\n    function PatchedProviderComponent(props: any) {\n      const ProviderComponent = provider();\n\n      return (\n        <DevAppContainer>\n          <ProviderComponent {...props} />\n        </DevAppContainer>\n      );\n    }\n\n    originalSetWrapperComponentProvider(() => PatchedProviderComponent);\n  };\n}\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingView.d.ts.map b/node_modules/expo/build/environment/DevLoadingView.d.ts.map
+index 0002b37..7178a13 100644
+--- a/node_modules/expo/build/environment/DevLoadingView.d.ts.map
++++ b/node_modules/expo/build/environment/DevLoadingView.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"DevLoadingView.d.ts","sourceRoot":"","sources":["../../src/environment/DevLoadingView.tsx"],"names":[],"mappings":"AAWA,MAAM,CAAC,OAAO,UAAU,cAAc,uBAuFrC"}
+\ No newline at end of file
++{"version":3,"file":"DevLoadingView.d.ts","sourceRoot":"","sources":["../../src/environment/DevLoadingView.tsx"],"names":[],"mappings":"AAOA,MAAM,CAAC,OAAO,UAAU,cAAc,uBAmFrC"}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingView.js b/node_modules/expo/build/environment/DevLoadingView.js
+index 4a2a7b7..e6d1117 100644
+--- a/node_modules/expo/build/environment/DevLoadingView.js
++++ b/node_modules/expo/build/environment/DevLoadingView.js
+@@ -1,12 +1,16 @@
++import { EventEmitter } from 'expo-modules-core';
+ import React, { useEffect, useState, useRef, useMemo } from 'react';
+-import { Animated, StyleSheet, Text, NativeModules, NativeEventEmitter, TurboModuleRegistry, View, } from 'react-native';
++import { Animated, StyleSheet, Text, Platform, View } from 'react-native';
++import DevLoadingViewNativeModule from './DevLoadingViewNativeModule';
++import { getStaticSafeArea } from './getStaticSafeArea';
+ export default function DevLoadingView() {
++    const [message, setMessage] = useState('Refreshing...');
+     const [isDevLoading, setIsDevLoading] = useState(false);
+     const [isAnimating, setIsAnimating] = useState(false);
+     const translateY = useRef(new Animated.Value(0)).current;
+     const emitter = useMemo(() => {
+         try {
+-            return new NativeEventEmitter(NativeModules.DevLoadingView);
++            return new EventEmitter(DevLoadingViewNativeModule);
+         }
+         catch (error) {
+             throw new Error('Failed to instantiate native emitter in `DevLoadingView` because the native module `DevLoadingView` is undefined: ' +
+@@ -17,11 +21,7 @@ export default function DevLoadingView() {
+         if (!emitter)
+             return;
+         function handleShowMessage({ message }) {
+-            // "Refreshing..." is the standard fast refresh message and it's the
+-            // only time we want to display this overlay.
+-            if (message !== 'Refreshing...') {
+-                return;
+-            }
++            setMessage(message || 'Refreshing...');
+             // TODO: if we show the refreshing banner and don't get a hide message
+             // for 3 seconds, warn the user that it's taking a while and suggest
+             // they reload
+@@ -37,7 +37,7 @@ export default function DevLoadingView() {
+                 toValue: 150,
+                 delay: 1000,
+                 duration: 350,
+-                useNativeDriver: true,
++                useNativeDriver: Platform.OS !== 'web',
+             }).start(({ finished }) => {
+                 if (finished) {
+                     setIsAnimating(false);
+@@ -57,7 +57,7 @@ export default function DevLoadingView() {
+             React.createElement(View, { style: styles.banner },
+                 React.createElement(View, { style: styles.contentContainer },
+                     React.createElement(View, { style: { flexDirection: 'row' } },
+-                        React.createElement(Text, { style: styles.text }, isDevLoading ? 'Refreshing...' : 'Refreshed')),
++                        React.createElement(Text, { style: styles.text }, message)),
+                     React.createElement(View, { style: { flex: 1 } },
+                         React.createElement(Text, { style: styles.subtitle }, isDevLoading ? 'Using Fast Refresh' : "Don't see your changes? Reload the app"))))));
+     }
+@@ -65,12 +65,6 @@ export default function DevLoadingView() {
+         return null;
+     }
+ }
+-/**
+- * This is a hack to get the safe area insets without explicitly depending on react-native-safe-area-context.
+- **/
+-const RNCSafeAreaContext = TurboModuleRegistry.get('RNCSafeAreaContext');
+-// @ts-ignore: we're not using the spec so the return type of getConstants() is {}
+-const initialWindowMetrics = RNCSafeAreaContext?.getConstants()?.initialWindowMetrics;
+ const styles = StyleSheet.create({
+     animatedContainer: {
+         position: 'absolute',
+@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
+         flex: 1,
+         overflow: 'visible',
+         backgroundColor: 'rgba(0,0,0,0.75)',
+-        paddingBottom: initialWindowMetrics?.insets?.bottom ?? 0,
++        paddingBottom: getStaticSafeArea().bottom,
+     },
+     contentContainer: {
+         flex: 1,
+diff --git a/node_modules/expo/build/environment/DevLoadingView.js.map b/node_modules/expo/build/environment/DevLoadingView.js.map
+index b61a6ea..1760aef 100644
+--- a/node_modules/expo/build/environment/DevLoadingView.js.map
++++ b/node_modules/expo/build/environment/DevLoadingView.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"DevLoadingView.js","sourceRoot":"","sources":["../../src/environment/DevLoadingView.tsx"],"names":[],"mappings":"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","sourcesContent":["import React, { useEffect, useState, useRef, useMemo } from 'react';\nimport {\n  Animated,\n  StyleSheet,\n  Text,\n  NativeModules,\n  NativeEventEmitter,\n  TurboModuleRegistry,\n  View,\n} from 'react-native';\n\nexport default function DevLoadingView() {\n  const [isDevLoading, setIsDevLoading] = useState(false);\n  const [isAnimating, setIsAnimating] = useState(false);\n  const translateY = useRef(new Animated.Value(0)).current;\n  const emitter = useMemo<NativeEventEmitter>(() => {\n    try {\n      return new NativeEventEmitter(NativeModules.DevLoadingView);\n    } catch (error) {\n      throw new Error(\n        'Failed to instantiate native emitter in `DevLoadingView` because the native module `DevLoadingView` is undefined: ' +\n          error.message\n      );\n    }\n  }, []);\n\n  useEffect(() => {\n    if (!emitter) return;\n\n    function handleShowMessage({ message }) {\n      // \"Refreshing...\" is the standard fast refresh message and it's the\n      // only time we want to display this overlay.\n      if (message !== 'Refreshing...') {\n        return;\n      }\n\n      // TODO: if we show the refreshing banner and don't get a hide message\n      // for 3 seconds, warn the user that it's taking a while and suggest\n      // they reload\n\n      translateY.setValue(0);\n      setIsDevLoading(true);\n    }\n\n    function handleHide() {\n      // TODO: if we showed the 'refreshing' banner less than 250ms ago, delay\n      // switching to the 'finished' banner\n\n      setIsAnimating(true);\n      setIsDevLoading(false);\n      Animated.timing(translateY, {\n        toValue: 150,\n        delay: 1000,\n        duration: 350,\n        useNativeDriver: true,\n      }).start(({ finished }) => {\n        if (finished) {\n          setIsAnimating(false);\n          translateY.setValue(0);\n        }\n      });\n    }\n\n    const showMessageSubscription = emitter.addListener(\n      'devLoadingView:showMessage',\n      handleShowMessage\n    );\n    const hideSubscription = emitter.addListener('devLoadingView:hide', handleHide);\n\n    return function cleanup() {\n      showMessageSubscription.remove();\n      hideSubscription.remove();\n    };\n  }, [translateY, emitter]);\n\n  if (isDevLoading || isAnimating) {\n    return (\n      <Animated.View\n        style={[styles.animatedContainer, { transform: [{ translateY }] }]}\n        pointerEvents=\"none\">\n        <View style={styles.banner}>\n          <View style={styles.contentContainer}>\n            <View style={{ flexDirection: 'row' }}>\n              <Text style={styles.text}>{isDevLoading ? 'Refreshing...' : 'Refreshed'}</Text>\n            </View>\n\n            <View style={{ flex: 1 }}>\n              <Text style={styles.subtitle}>\n                {isDevLoading ? 'Using Fast Refresh' : \"Don't see your changes? Reload the app\"}\n              </Text>\n            </View>\n          </View>\n        </View>\n      </Animated.View>\n    );\n  } else {\n    return null;\n  }\n}\n\n/**\n * This is a hack to get the safe area insets without explicitly depending on react-native-safe-area-context.\n **/\nconst RNCSafeAreaContext = TurboModuleRegistry.get('RNCSafeAreaContext');\n\n// @ts-ignore: we're not using the spec so the return type of getConstants() is {}\nconst initialWindowMetrics = RNCSafeAreaContext?.getConstants()?.initialWindowMetrics;\n\nconst styles = StyleSheet.create({\n  animatedContainer: {\n    position: 'absolute',\n    bottom: 0,\n    left: 0,\n    right: 0,\n    zIndex: 42, // arbitrary\n  },\n\n  banner: {\n    flex: 1,\n    overflow: 'visible',\n    backgroundColor: 'rgba(0,0,0,0.75)',\n    paddingBottom: initialWindowMetrics?.insets?.bottom ?? 0,\n  },\n  contentContainer: {\n    flex: 1,\n    paddingTop: 10,\n    paddingBottom: 5,\n    alignItems: 'center',\n    justifyContent: 'center',\n    textAlign: 'center',\n  },\n  text: {\n    color: '#fff',\n    fontSize: 15,\n  },\n  subtitle: {\n    color: 'rgba(255,255,255,0.8)',\n  },\n});\n"]}
+\ No newline at end of file
++{"version":3,"file":"DevLoadingView.js","sourceRoot":"","sources":["../../src/environment/DevLoadingView.tsx"],"names":[],"mappings":"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","sourcesContent":["import { EventEmitter } from 'expo-modules-core';\nimport React, { useEffect, useState, useRef, useMemo } from 'react';\nimport { Animated, StyleSheet, Text, Platform, View } from 'react-native';\n\nimport DevLoadingViewNativeModule from './DevLoadingViewNativeModule';\nimport { getStaticSafeArea } from './getStaticSafeArea';\n\nexport default function DevLoadingView() {\n  const [message, setMessage] = useState('Refreshing...');\n  const [isDevLoading, setIsDevLoading] = useState(false);\n  const [isAnimating, setIsAnimating] = useState(false);\n  const translateY = useRef(new Animated.Value(0)).current;\n  const emitter = useMemo<EventEmitter>(() => {\n    try {\n      return new EventEmitter(DevLoadingViewNativeModule);\n    } catch (error) {\n      throw new Error(\n        'Failed to instantiate native emitter in `DevLoadingView` because the native module `DevLoadingView` is undefined: ' +\n          error.message\n      );\n    }\n  }, []);\n\n  useEffect(() => {\n    if (!emitter) return;\n\n    function handleShowMessage({ message }) {\n      setMessage(message || 'Refreshing...');\n      // TODO: if we show the refreshing banner and don't get a hide message\n      // for 3 seconds, warn the user that it's taking a while and suggest\n      // they reload\n\n      translateY.setValue(0);\n      setIsDevLoading(true);\n    }\n\n    function handleHide() {\n      // TODO: if we showed the 'refreshing' banner less than 250ms ago, delay\n      // switching to the 'finished' banner\n\n      setIsAnimating(true);\n      setIsDevLoading(false);\n      Animated.timing(translateY, {\n        toValue: 150,\n        delay: 1000,\n        duration: 350,\n        useNativeDriver: Platform.OS !== 'web',\n      }).start(({ finished }) => {\n        if (finished) {\n          setIsAnimating(false);\n          translateY.setValue(0);\n        }\n      });\n    }\n\n    const showMessageSubscription = emitter.addListener(\n      'devLoadingView:showMessage',\n      handleShowMessage\n    );\n    const hideSubscription = emitter.addListener('devLoadingView:hide', handleHide);\n\n    return function cleanup() {\n      showMessageSubscription.remove();\n      hideSubscription.remove();\n    };\n  }, [translateY, emitter]);\n\n  if (isDevLoading || isAnimating) {\n    return (\n      <Animated.View\n        style={[styles.animatedContainer, { transform: [{ translateY }] }]}\n        pointerEvents=\"none\">\n        <View style={styles.banner}>\n          <View style={styles.contentContainer}>\n            <View style={{ flexDirection: 'row' }}>\n              <Text style={styles.text}>{message}</Text>\n            </View>\n\n            <View style={{ flex: 1 }}>\n              <Text style={styles.subtitle}>\n                {isDevLoading ? 'Using Fast Refresh' : \"Don't see your changes? Reload the app\"}\n              </Text>\n            </View>\n          </View>\n        </View>\n      </Animated.View>\n    );\n  } else {\n    return null;\n  }\n}\n\nconst styles = StyleSheet.create({\n  animatedContainer: {\n    position: 'absolute',\n    bottom: 0,\n    left: 0,\n    right: 0,\n    zIndex: 42, // arbitrary\n  },\n\n  banner: {\n    flex: 1,\n    overflow: 'visible',\n    backgroundColor: 'rgba(0,0,0,0.75)',\n    paddingBottom: getStaticSafeArea().bottom,\n  },\n  contentContainer: {\n    flex: 1,\n    paddingTop: 10,\n    paddingBottom: 5,\n    alignItems: 'center',\n    justifyContent: 'center',\n    textAlign: 'center',\n  },\n  text: {\n    color: '#fff',\n    fontSize: 15,\n  },\n  subtitle: {\n    color: 'rgba(255,255,255,0.8)',\n  },\n});\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingViewNativeModule.d.ts b/node_modules/expo/build/environment/DevLoadingViewNativeModule.d.ts
+new file mode 100644
+index 0000000..ad203e6
+--- /dev/null
++++ b/node_modules/expo/build/environment/DevLoadingViewNativeModule.d.ts
+@@ -0,0 +1,9 @@
++declare const _default: Readonly<{
++    name: string;
++    startObserving(): void;
++    stopObserving(): void;
++    addListener(): void;
++    removeListeners(): void;
++}>;
++export default _default;
++//# sourceMappingURL=DevLoadingViewNativeModule.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingViewNativeModule.d.ts.map b/node_modules/expo/build/environment/DevLoadingViewNativeModule.d.ts.map
+new file mode 100644
+index 0000000..2a012bb
+--- /dev/null
++++ b/node_modules/expo/build/environment/DevLoadingViewNativeModule.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"DevLoadingViewNativeModule.d.ts","sourceRoot":"","sources":["../../src/environment/DevLoadingViewNativeModule.ts"],"names":[],"mappings":";;;;;;;AAAA,wBAMG"}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingViewNativeModule.js b/node_modules/expo/build/environment/DevLoadingViewNativeModule.js
+new file mode 100644
+index 0000000..104c168
+--- /dev/null
++++ b/node_modules/expo/build/environment/DevLoadingViewNativeModule.js
+@@ -0,0 +1,8 @@
++export default Object.freeze({
++    name: 'DevLoadingView',
++    startObserving() { },
++    stopObserving() { },
++    addListener() { },
++    removeListeners() { },
++});
++//# sourceMappingURL=DevLoadingViewNativeModule.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingViewNativeModule.js.map b/node_modules/expo/build/environment/DevLoadingViewNativeModule.js.map
+new file mode 100644
+index 0000000..0e8294d
+--- /dev/null
++++ b/node_modules/expo/build/environment/DevLoadingViewNativeModule.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"DevLoadingViewNativeModule.js","sourceRoot":"","sources":["../../src/environment/DevLoadingViewNativeModule.ts"],"names":[],"mappings":"AAAA,eAAe,MAAM,CAAC,MAAM,CAAC;IAC3B,IAAI,EAAE,gBAAgB;IACtB,cAAc,KAAI,CAAC;IACnB,aAAa,KAAI,CAAC;IAClB,WAAW,KAAI,CAAC;IAChB,eAAe,KAAI,CAAC;CACrB,CAAC,CAAC","sourcesContent":["export default Object.freeze({\n  name: 'DevLoadingView',\n  startObserving() {},\n  stopObserving() {},\n  addListener() {},\n  removeListeners() {},\n});\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.d.ts b/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.d.ts
+new file mode 100644
+index 0000000..7307047
+--- /dev/null
++++ b/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.d.ts
+@@ -0,0 +1,3 @@
++declare const _default: any;
++export default _default;
++//# sourceMappingURL=DevLoadingViewNativeModule.native.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.d.ts.map b/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.d.ts.map
+new file mode 100644
+index 0000000..cb5b844
+--- /dev/null
++++ b/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"DevLoadingViewNativeModule.native.d.ts","sourceRoot":"","sources":["../../src/environment/DevLoadingViewNativeModule.native.ts"],"names":[],"mappings":";AAEA,wBAA4C"}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.js b/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.js
+new file mode 100644
+index 0000000..1158c13
+--- /dev/null
++++ b/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.js
+@@ -0,0 +1,3 @@
++import { NativeModules } from 'react-native';
++export default NativeModules.DevLoadingView;
++//# sourceMappingURL=DevLoadingViewNativeModule.native.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.js.map b/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.js.map
+new file mode 100644
+index 0000000..bff4cf9
+--- /dev/null
++++ b/node_modules/expo/build/environment/DevLoadingViewNativeModule.native.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"DevLoadingViewNativeModule.native.js","sourceRoot":"","sources":["../../src/environment/DevLoadingViewNativeModule.native.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,cAAc,CAAC;AAE7C,eAAe,aAAa,CAAC,cAAc,CAAC","sourcesContent":["import { NativeModules } from 'react-native';\n\nexport default NativeModules.DevLoadingView;\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/getStaticSafeArea.d.ts b/node_modules/expo/build/environment/getStaticSafeArea.d.ts
+new file mode 100644
+index 0000000..cbbdead
+--- /dev/null
++++ b/node_modules/expo/build/environment/getStaticSafeArea.d.ts
+@@ -0,0 +1,11 @@
++/**
++ * Get the best estimate safe area before native modules have fully loaded,
++ * this is the fallback file which assumes guessing cannot be done.
++ */
++export declare function getStaticSafeArea(): {
++    top: number;
++    bottom: number;
++    left: number;
++    right: number;
++};
++//# sourceMappingURL=getStaticSafeArea.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/getStaticSafeArea.d.ts.map b/node_modules/expo/build/environment/getStaticSafeArea.d.ts.map
+new file mode 100644
+index 0000000..746af85
+--- /dev/null
++++ b/node_modules/expo/build/environment/getStaticSafeArea.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"getStaticSafeArea.d.ts","sourceRoot":"","sources":["../../src/environment/getStaticSafeArea.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,wBAAgB,iBAAiB,IAAI;IAAE,GAAG,EAAE,MAAM,CAAC;IAAC,MAAM,EAAE,MAAM,CAAC;IAAC,IAAI,EAAE,MAAM,CAAC;IAAC,KAAK,EAAE,MAAM,CAAA;CAAE,CAOhG"}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/getStaticSafeArea.js b/node_modules/expo/build/environment/getStaticSafeArea.js
+new file mode 100644
+index 0000000..5ce23b0
+--- /dev/null
++++ b/node_modules/expo/build/environment/getStaticSafeArea.js
+@@ -0,0 +1,13 @@
++/**
++ * Get the best estimate safe area before native modules have fully loaded,
++ * this is the fallback file which assumes guessing cannot be done.
++ */
++export function getStaticSafeArea() {
++    return {
++        top: 0,
++        bottom: 0,
++        left: 0,
++        right: 0,
++    };
++}
++//# sourceMappingURL=getStaticSafeArea.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/getStaticSafeArea.js.map b/node_modules/expo/build/environment/getStaticSafeArea.js.map
+new file mode 100644
+index 0000000..3228189
+--- /dev/null
++++ b/node_modules/expo/build/environment/getStaticSafeArea.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"getStaticSafeArea.js","sourceRoot":"","sources":["../../src/environment/getStaticSafeArea.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,MAAM,UAAU,iBAAiB;IAC/B,OAAO;QACL,GAAG,EAAE,CAAC;QACN,MAAM,EAAE,CAAC;QACT,IAAI,EAAE,CAAC;QACP,KAAK,EAAE,CAAC;KACT,CAAC;AACJ,CAAC","sourcesContent":["/**\n * Get the best estimate safe area before native modules have fully loaded,\n * this is the fallback file which assumes guessing cannot be done.\n */\nexport function getStaticSafeArea(): { top: number; bottom: number; left: number; right: number } {\n  return {\n    top: 0,\n    bottom: 0,\n    left: 0,\n    right: 0,\n  };\n}\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/getStaticSafeArea.native.d.ts b/node_modules/expo/build/environment/getStaticSafeArea.native.d.ts
+new file mode 100644
+index 0000000..71f310a
+--- /dev/null
++++ b/node_modules/expo/build/environment/getStaticSafeArea.native.d.ts
+@@ -0,0 +1,11 @@
++/**
++ * Get the best estimate safe area before native modules have fully loaded.
++ * This is a hack to get the safe area insets without explicitly depending on react-native-safe-area-context.
++ */
++export declare function getStaticSafeArea(): {
++    top: number;
++    bottom: number;
++    left: number;
++    right: number;
++};
++//# sourceMappingURL=getStaticSafeArea.native.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/getStaticSafeArea.native.d.ts.map b/node_modules/expo/build/environment/getStaticSafeArea.native.d.ts.map
+new file mode 100644
+index 0000000..89bf1e4
+--- /dev/null
++++ b/node_modules/expo/build/environment/getStaticSafeArea.native.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"getStaticSafeArea.native.d.ts","sourceRoot":"","sources":["../../src/environment/getStaticSafeArea.native.ts"],"names":[],"mappings":"AAIA;;;GAGG;AACH,wBAAgB,iBAAiB,IAAI;IAAE,GAAG,EAAE,MAAM,CAAC;IAAC,MAAM,EAAE,MAAM,CAAC;IAAC,IAAI,EAAE,MAAM,CAAC;IAAC,KAAK,EAAE,MAAM,CAAA;CAAE,CAUhG"}
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/getStaticSafeArea.native.js b/node_modules/expo/build/environment/getStaticSafeArea.native.js
+new file mode 100644
+index 0000000..a9bd20c
+--- /dev/null
++++ b/node_modules/expo/build/environment/getStaticSafeArea.native.js
+@@ -0,0 +1,17 @@
++import { TurboModuleRegistry } from 'react-native';
++const DEFAULT_SAFE_AREA = { top: 0, bottom: 0, left: 0, right: 0 };
++/**
++ * Get the best estimate safe area before native modules have fully loaded.
++ * This is a hack to get the safe area insets without explicitly depending on react-native-safe-area-context.
++ */
++export function getStaticSafeArea() {
++    try {
++        const RNCSafeAreaContext = TurboModuleRegistry.get('RNCSafeAreaContext');
++        // @ts-ignore: we're not using the spec so the return type of getConstants() is {}
++        const initialWindowMetrics = RNCSafeAreaContext?.getConstants()?.initialWindowMetrics;
++        return initialWindowMetrics?.insets ?? DEFAULT_SAFE_AREA;
++    }
++    catch { }
++    return DEFAULT_SAFE_AREA;
++}
++//# sourceMappingURL=getStaticSafeArea.native.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo/build/environment/getStaticSafeArea.native.js.map b/node_modules/expo/build/environment/getStaticSafeArea.native.js.map
+new file mode 100644
+index 0000000..3856326
+--- /dev/null
++++ b/node_modules/expo/build/environment/getStaticSafeArea.native.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"getStaticSafeArea.native.js","sourceRoot":"","sources":["../../src/environment/getStaticSafeArea.native.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,mBAAmB,EAAE,MAAM,cAAc,CAAC;AAEnD,MAAM,iBAAiB,GAAG,EAAE,GAAG,EAAE,CAAC,EAAE,MAAM,EAAE,CAAC,EAAE,IAAI,EAAE,CAAC,EAAE,KAAK,EAAE,CAAC,EAAE,CAAC;AAEnE;;;GAGG;AACH,MAAM,UAAU,iBAAiB;IAC/B,IAAI;QACF,MAAM,kBAAkB,GAAG,mBAAmB,CAAC,GAAG,CAAC,oBAAoB,CAAC,CAAC;QAEzE,kFAAkF;QAClF,MAAM,oBAAoB,GAAG,kBAAkB,EAAE,YAAY,EAAE,EAAE,oBAAoB,CAAC;QAEtF,OAAO,oBAAoB,EAAE,MAAM,IAAI,iBAAiB,CAAC;KAC1D;IAAC,MAAM,GAAE;IACV,OAAO,iBAAiB,CAAC;AAC3B,CAAC","sourcesContent":["import { TurboModuleRegistry } from 'react-native';\n\nconst DEFAULT_SAFE_AREA = { top: 0, bottom: 0, left: 0, right: 0 };\n\n/**\n * Get the best estimate safe area before native modules have fully loaded.\n * This is a hack to get the safe area insets without explicitly depending on react-native-safe-area-context.\n */\nexport function getStaticSafeArea(): { top: number; bottom: number; left: number; right: number } {\n  try {\n    const RNCSafeAreaContext = TurboModuleRegistry.get('RNCSafeAreaContext');\n\n    // @ts-ignore: we're not using the spec so the return type of getConstants() is {}\n    const initialWindowMetrics = RNCSafeAreaContext?.getConstants()?.initialWindowMetrics;\n\n    return initialWindowMetrics?.insets ?? DEFAULT_SAFE_AREA;\n  } catch {}\n  return DEFAULT_SAFE_AREA;\n}\n"]}
+\ No newline at end of file
