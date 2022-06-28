@@ -30,9 +30,9 @@ Arguably the most important part, I haven't gotten this working yet. It appears 
 ```
 Refused to load http://localhost:19000/index.bundle?platform=web&dev=true&hot=false because it does not appear in the script-src directive of the Content Security Policy.
 ```
-- Attempted to add to the `manifest.json`
-- Attempted to add to the `index.html`
-- Attempted to add to the JS response headers
+- Attempted to add to the `manifest.json` under random permissions.
+- Attempted to add to the [`index.html`](https://github.com/EvanBacon/expo-safari-extension-test/blob/7515b8e673dcad909cc6181471395cf870e002ff/web-extension/public/index.html#L7-L11).
+- Attempted to add to the [JS response headers](https://github.com/EvanBacon/expo-safari-extension-test/blob/7515b8e673dcad909cc6181471395cf870e002ff/patches/metro%2B0.67.0.patch#L22).
 
 #### `web-extension/public/index.html`
 
