@@ -73,3 +73,5 @@ web-build/
 dist/
 
 # @end expo-cli
+
+/web-extension/manifest.json
