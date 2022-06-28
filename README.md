@@ -6,6 +6,10 @@ This is reference work to help improve the [Safari Extension Expo Config Plugin]
 
 ## Features
 
+### Static folder
+
+[Refer to the local README](./web-extension/README.md)
+
 ### No `ios/` Folder
 
 The idea here is to hoist the relevant content outside of the `ios` folder so the user can modify it while leaving the majority of the iOS content in a regenerative state.
