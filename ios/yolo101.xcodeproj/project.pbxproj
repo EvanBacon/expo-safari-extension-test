@@ -20,7 +20,7 @@
 		CDB8F26C286A3B6C00408A1B /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = CDB8F266286A3B6C00408A1B /* manifest.json */; };
 		CDB8F271286A3B7700408A1B /* images in Resources */ = {isa = PBXBuildFile; fileRef = CDB8F26F286A3B7700408A1B /* images */; };
 		CDB8F272286A3B7700408A1B /* locales in Resources */ = {isa = PBXBuildFile; fileRef = CDB8F270286A3B7700408A1B /* locales */; };
-		CDB8F275286A3E6000408A1B /* src in Resources */ = {isa = PBXBuildFile; fileRef = CDB8F274286A3E6000408A1B /* src */; };
+		CDB8F275286A3E6000408A1B /* public in Resources */ = {isa = PBXBuildFile; fileRef = CDB8F274286A3E6000408A1B /* public */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +67,7 @@
 		CDB8F266286A3B6C00408A1B /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		CDB8F26F286A3B7700408A1B /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = "../web-extension/images"; sourceTree = "<group>"; };
 		CDB8F270286A3B7700408A1B /* locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = locales; path = "../web-extension/locales"; sourceTree = "<group>"; };
-		CDB8F274286A3E6000408A1B /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
+		CDB8F274286A3E6000408A1B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-yolo101/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,7 +178,7 @@
 		CDB8F262286A3B6C00408A1B /* web-extension */ = {
 			isa = PBXGroup;
 			children = (
-				CDB8F274286A3E6000408A1B /* src */,
+				CDB8F274286A3E6000408A1B /* public */,
 				CDB8F270286A3B7700408A1B /* locales */,
 				CDB8F26F286A3B7700408A1B /* images */,
 				CDB8F266286A3B6C00408A1B /* manifest.json */,
@@ -301,10 +301,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDB8F272286A3B7700408A1B /* locales in web-extension */,
-				CDB8F26C286A3B6C00408A1B /* manifest.json in web-extension */,
-				CDB8F275286A3E6000408A1B /* src in web-extension */,
-				CDB8F271286A3B7700408A1B /* images in web-extension */,
+				CDB8F272286A3B7700408A1B /* locales in Resources */,
+				CDB8F26C286A3B6C00408A1B /* manifest.json in Resources */,
+				CDB8F275286A3E6000408A1B /* public in Resources */,
+				CDB8F271286A3B7700408A1B /* images in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
