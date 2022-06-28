@@ -646,7 +646,7 @@
 					SafariServices,
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bacon.yolo101.webext;
+				PRODUCT_BUNDLE_IDENTIFIER = app.bacon.expowebextension.webext;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -685,7 +685,7 @@
 					SafariServices,
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bacon.yolo101.webext;
+				PRODUCT_BUNDLE_IDENTIFIER = app.bacon.expowebextension.webext;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
