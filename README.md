@@ -2,6 +2,8 @@
 
 Test making the iOS Safari extension workflow similar to Expo e.g. HMR, no `ios` folder, etc.
 
+This is reference work to help improve the [Safari Extension Expo Config Plugin](https://github.com/andrew-levy/react-native-safari-extension).
+
 ## Features
 
 ### No `ios/` Folder
